@@ -32,7 +32,7 @@ class Main extends Component {
     var val = select.options[select.selectedIndex].value;
 
     const d = {
-        binary: val === 0 ? true : false,
+        binary: +val === 0 ? true : false,
         data: {
             data_channel_is_socmed,
             data_channel_is_tech,
@@ -55,7 +55,7 @@ class Main extends Component {
   }
 
   render() {
-    const prediction = get(this.props, 'midgress.predict');
+    const prediction = get(this.props, 'predict.payload');
 
     return (
         <div className="content">
@@ -109,7 +109,9 @@ class Main extends Component {
             </select>
             <button onClick={() => this.post() }>Predict</button>
             <div className="results">
-                {prediction ? prediction : 'Predictions will appear here...'}
+                {prediction ? prediction.response[0].map((pred, idx) => 
+                    <div key={idx}>{pred}</div>
+                ) : 'Predictions will appear here...'}
             </div>
         </div>
     );
