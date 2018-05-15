@@ -1,0 +1,88 @@
+.grid {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+    box-sizing: border-box;
+    padding-top: 1rem;
+}
+
+.input-box {
+    width: 33%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.input-box input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.5rem;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+
+button {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    padding: 8px 14px;
+    height: 32px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 14px;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #2669bb;
+    border: 1px solid #2669bb;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.results {
+    background: #fef9e8;
+    width: 95%;
+    margin: 2rem auto;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 1px solid #d2d2d2;
+    color: #666;
+}
+
+.select {
+    color: #475767;
+    border-color: #cbd4dc;
+    background-color: #fff;
+    width: 110px;
+    margin-left: 0.5rem;
+    height: 33px;
+    border: 1px solid #d2d2d2;
+}
+
+@media only screen and (max-width: 768px) {
+
+    h1 {
+        font-size: 1rem;
+    }
+
+    .input-box {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    button {
+        width: 95%;
+        margin: 0.3rem auto;
+        display: block;
+    }
+
+    .select{
+        width: 95%;
+        margin: 0.3rem auto;
+        display: block;
+    }
+}

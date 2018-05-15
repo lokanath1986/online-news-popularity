@@ -1,0 +1,22 @@
+{
+  "name": "ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4",
+    "react-redux": "^4.0.0",
+    "axios": "^0.8.1",
+    "lodash": "^3.10.1",
+    "react-sparklines": "1.6.0",
+    "redux": "^3.0.4",
+    "redux-promise": "^0.5.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
