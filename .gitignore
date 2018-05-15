@@ -2,3 +2,5 @@
 __pycache__
 .ipynb_checkpoints
 __pycache__
+weight.h5
+multi_weight.h5
