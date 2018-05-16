@@ -65,9 +65,9 @@ class Main extends Component {
     if(+this.state.value === 1) {
         const weekday_is_sunday =  document.getElementById(' weekday_is_sunday').value || 0;
         const weekday_is_saturday =  document.getElementById(' weekday_is_saturday').value || 0;
-        const data_channel_is_socmed = document.getElementById(' data_channel_is_scomed').value || 0;
+        const data_channel_is_socmed = document.getElementById(' data_channel_is_socmed').value || 0;
         const mul_d = {
-            binary: +this.state.value === 0 ? true : false,
+            binary: +this.state.value === 1 ? false : true,
             data: {
                 weekday_is_sunday,
                 weekday_is_saturday,
@@ -90,7 +90,6 @@ class Main extends Component {
         }
         data = mul_d;
     } 
-    
     this.props.postPrediction(data);
   }
 
