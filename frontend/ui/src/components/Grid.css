@@ -1,0 +1,28 @@
+.grid {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+    box-sizing: border-box;
+    padding-top: 1rem;
+}
+
+.input-box {
+    width: 33%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.input-box input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.5rem;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+
+@media only screen and (max-width: 768px) {
+    .input-box {
+        width: 100%;
+        padding: 0.5rem;
+    }
+}
