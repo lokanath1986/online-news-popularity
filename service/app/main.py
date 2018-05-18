@@ -12,6 +12,8 @@ from keras.models import model_from_json
 import time
 from flask import jsonify
 from flask_cors import CORS
+import logging
+import allowed_params
 
 app = Flask(__name__)
 #Enable CORS so we can call the service via ajax request
@@ -30,28 +32,23 @@ def predict():
     start = time.time()
     #Load models from S3
     #TODO: Implement service to prefech models after each successful training
-    bin_model, mul_model = preload_models()
+    model = preload_models()
     end = time.time()
     app.logger.info('[LOG]: Models loaded in ' + str(end-start) + ' secs')
 
     data = request.get_json(silent=False)
-    
-    #switch between the binary/multi classification models
-    is_binary = data['binary']
-    app.logger.info(is_binary)
-    if is_binary:
-        model = bin_model
-    else:
-        model = mul_model
+    app.logger.info(data)
 
-    input = data['data']
+    input = data['content']
     app.logger.info('[LOG]: Parsed params')
-    X = pd.DataFrame([input])
+    app.logger.info('[LOG]: Data length is ' + str(len(input)))
+    #Create DataFrame & in the same time filter input cols
+    X = pd.DataFrame(data=[input], columns=allowed_params.get_allowed_params())
+    app.logger.info(X)
     app.logger.info('[LOG]: Calling prediction')
+    
     pred = model.predict(np.array(X[0:1]))
-
     return jsonify({'response': pred.tolist()})
-
 
 #Pulling specific model & weight file from S3 Bucket
 def load_model(model_name, weight_name, w_name):
@@ -80,9 +77,15 @@ def load_model(model_name, weight_name, w_name):
     return loaded_model
 
 def preload_models():
-    binary_model = load_model('binary_model.json', 'binary_weights.h5', 'binary_weight.h5')
     model = load_model('multi_model.json', 'multi_weights.h5', 'multi_weight.h5')
-    return binary_model, model
+    return model
+
+@app.before_first_request
+def setup_logging():
+    if not app.debug:
+        # In production mode, add log handler to sys.stderr.
+        app.logger.addHandler(logging.StreamHandler())
+        app.logger.setLevel(logging.INFO)
 
 if __name__ == '__main__':
     app.run(debug=True)
