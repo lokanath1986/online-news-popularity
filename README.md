@@ -13,7 +13,7 @@ My solution relies heavily on the AWS stack. The model and weights are placed in
 - You want to store multiple versions
 - The training pipeline is automated.
 
-I used Jupyther notebook to experiment, Pandas and Keras to and train the model. My final solution is a fully connected, quite shallow deep neural network. The final accuracy I achieved was **~0.36 with 4 categories**. I found this result really really poor, so I started to investigate. I've created a model with only 2 categories in order to reduce the problem to a binary classification. That way I was able to achieve ~0.63 accuracy. I found an ML class assignment paper where the authors claimed that they achieved around 70% accuracy on the binary problem with Decision Trees. I wasn't able to reproduce their results even with the same features & algorithm. I was thinking on bringing in extra data for training, but the feature engineering on the original dataset makes it really hard. Quote:
+I used Jupyther notebook to experiment, Pandas and Keras to and train the model. My final solution is a fully connected, quite shallow deep neural network. The final accuracy I achieved was **~0.36 with 4 categories**. I found this result really really poor, so I started to investigate. I've created a model with only 2 categories in order to reduce the problem to a binary classification. That way I was able to achieve ~0.63 accuracy. I found an ML class assignment paper where the authors claimed that they achieved around 70% accuracy on the binary problem with Decision Trees. I wasn't able to reproduce their results even with the same features & algorithm. I was thinking on bringing in extra data for training, but the previous feature engineering on the original dataset makes it really hard. Quote:
 >We performed a logarithmic transformation to scale the unbounded numeric features (e.g., number of words in article), while the nominal attributes were transformed with the common 1-of-C encoding.
 
 After seeing that these features doesn't provide enough information for strong classification capabilities, hoping that text does, I crawled the articles in question and parsed the article titles from urls as well. Spolier: with exclusively textual data I achieved even worse results even with pre-trained vectors. Thus I sticked with the fully connected solution and used Hyperas to tune the model. I am confident to say, that this dataset has weak features to make powerful classification task. Either there is no direct correlation or there is simply not enough training data.
@@ -40,6 +40,7 @@ The service does:
 
 Use the following curl script to call the service: (see feature explanation [here](https://archive.ics.uci.edu/ml/datasets/online+news+popularity))
 ```bash
+#Replace zeros
 curl -X POST -H 'Content-type: application/json' 'http://ec2-52-57-163-24.eu-central-1.compute.amazonaws.com/predict' -d '
 {
   "content": {
