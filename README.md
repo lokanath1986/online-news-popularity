@@ -13,7 +13,7 @@ My solution relies heavily on the AWS stack. The model and weights are placed in
 - You want to store multiple versions
 - The training pipeline is automated.
 
-I used jupyther notebook to experiment, pandas and keras to and train the model. My final solution is a fully connected, quite shallow deep neural network. The final accuracy I achieved was **~0.36 with 4 categories**. I found this result really really poor, so I started to investigate. I've created a model with only 2 categories in order to reduce the problem to a binary classification. That way I was able to achieve ~0.63 accuracy. I found an ML class assignment paper where the authors claimed that they achieved around 70% accuracy on the binary problem with Decision Trees. I wasn't able to reproduce their results even with the same features & algorithm. I was thinking on bringing in extra data for training, but the feature engineering on the original dataset makes it really hard. Quote:
+I used Jupyther notebook to experiment, Pandas and Keras to and train the model. My final solution is a fully connected, quite shallow deep neural network. The final accuracy I achieved was **~0.36 with 4 categories**. I found this result really really poor, so I started to investigate. I've created a model with only 2 categories in order to reduce the problem to a binary classification. That way I was able to achieve ~0.63 accuracy. I found an ML class assignment paper where the authors claimed that they achieved around 70% accuracy on the binary problem with Decision Trees. I wasn't able to reproduce their results even with the same features & algorithm. I was thinking on bringing in extra data for training, but the feature engineering on the original dataset makes it really hard. Quote:
 >We performed a logarithmic transformation to scale the unbounded numeric features (e.g., number of words in article), while the nominal attributes were transformed with the common 1-of-C encoding.
 
 After seeing that these features doesn't provide enough information for strong classification capabilities, hoping that text does, I crawled the articles in question and parsed the article titles from urls as well. Spolier: with exclusively textual data I achieved even worse results even with pre-trained vectors. Thus I sticked with the fully connected solution and used Hyperas to tune the model. I am confident to say, that this dataset has weak features to make powerful classification task. Either there is no direct correlation or there is simply not enough training data.
@@ -76,7 +76,7 @@ You should receive a similar response:
 
 ### UI
 For making prediction more convinient I created a very small and dull frontend service which is hosted in S3 Static hosting.
-You can use the ui [here](http://lmi-frontend-bucket.s3-website.eu-central-1.amazonaws.com/).
+You can use the UI [here](http://lmi-frontend-bucket.s3-website.eu-central-1.amazonaws.com/).
 
 ## Bottlenecks and what could be improved
 - Reloading models from S3 on each API request is inefficient and will eventually costs you money. It is especially painful when the weights are chunky. A possible solution is that when the training is finished & the new model is uploaded to S3 an another endpoint is being called which preloads the model for your service. That way the model is only loaded once, right after the training is finished. An other solution would be to timestamp each trained model & keep track of the latest timestamp. That way one could have versioning and only the latest model would be pulled for the service.
