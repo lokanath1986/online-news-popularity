@@ -38,7 +38,7 @@ The service does:
 
 ### API:
 
-Use the following curl script to call the service: (see feature explanation [here](https://archive.ics.uci.edu/ml/datasets/online+news+popularity))
+Use the following curl script to request a prediction: (see feature explanation [here](https://archive.ics.uci.edu/ml/datasets/online+news+popularity))
 ```bash
 #Replace zeros with actual values
 curl -X POST -H 'Content-type: application/json' 'http://ec2-52-57-163-24.eu-central-1.compute.amazonaws.com/predict' -d '
