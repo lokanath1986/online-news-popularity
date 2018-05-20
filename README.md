@@ -75,6 +75,17 @@ You should receive a similar response:
 }
 ```
 
+You can check whether the API is up & running with:
+```bash
+curl -X GET -H 'Content-type: application/json' 'http://ec2-52-57-163-24.eu-central-1.compute.amazonaws.com/health'
+```
+And the response when everything is fine:
+```bash
+{
+  "health": "good"
+}
+```
+
 ### UI
 For making prediction more convinient I created a very small and dull frontend service which is hosted in S3 Static hosting.
 You can use the UI [here](http://lmi-frontend-bucket.s3-website.eu-central-1.amazonaws.com/).
